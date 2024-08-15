@@ -5,7 +5,6 @@ import java.util.Scanner;
 public class Agenda {
 
     private Map<Integer, String[]> contatos = new HashMap<>();
-    private int idCounter = 1;
 
     public static void main(String[] args) {
         Agenda agenda = new Agenda();
@@ -46,6 +45,26 @@ public class Agenda {
         } while (opcao != 6);
 
         scanner.close();
+    }
+
+    private void adicionarContato(Scanner scanner) {
+        // TODO
+    }
+
+    private void buscarContatoPorId(Scanner scanner) {
+        // TODO
+    }
+
+    private void listarContatos() {
+        // TODO
+    }
+
+    private void atualizarContato(Scanner scanner) {
+        // TODO
+    }
+
+    private void removerContato(Scanner scanner) {
+        // TODO
     }
 
     private void exibirMenu() {
