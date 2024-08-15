@@ -28,5 +28,5 @@ A aplicação foi organizada da seguinte forma:
 
 1. Clone o repositório:
    ```bash
-   git clone https://github.com/seu-usuario/agenda-de-contatos.git
+   git clone https://github.com/EyzRyder/agenda-de-contatos.git
    ```
