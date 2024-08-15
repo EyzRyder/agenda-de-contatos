@@ -4,14 +4,10 @@ import java.util.Scanner;
 
 public class Agenda {
 
-    private Map<Integer, String[]> contatos = new HashMap<>();
-
     public static void main(String[] args) {
-        Agenda agenda = new Agenda();
-        agenda.executar();
-    }
 
-    private void executar() {
+        Map<Integer, String[]> contatos = new HashMap<>();
+
         Scanner scanner = new Scanner(System.in);
         int opcao;
 
@@ -25,16 +21,16 @@ public class Agenda {
                     adicionarContato(scanner);
                     break;
                 case 2:
-                    listarContatos();
+                    detalharContato(scanner);
                     break;
                 case 3:
-                    atualizarContato(scanner);
+                    editarContato(scanner);
                     break;
                 case 4:
                     removerContato(scanner);
                     break;
                 case 5:
-                    buscarContatoPorId(scanner);
+                    listarContatos();
                     break;
                 case 6:
                     System.out.println("Saindo...");
@@ -47,34 +43,34 @@ public class Agenda {
         scanner.close();
     }
 
-    private void adicionarContato(Scanner scanner) {
-        // TODO
-    }
-
-    private void buscarContatoPorId(Scanner scanner) {
-        // TODO
-    }
-
-    private void listarContatos() {
-        // TODO
-    }
-
-    private void atualizarContato(Scanner scanner) {
-        // TODO
-    }
-
-    private void removerContato(Scanner scanner) {
-        // TODO
-    }
-
-    private void exibirMenu() {
+    private static void exibirMenu() {
         System.out.println("\n--- Menu da Agenda ---");
         System.out.println("1. Adicionar Contato");
-        System.out.println("2. Listar Contatos");
-        System.out.println("3. Atualizar Contato");
+        System.out.println("2. Detalhar contato");
+        System.out.println("3. Editar Contato");
         System.out.println("4. Remover Contato");
-        System.out.println("5. Buscar Contato por ID");
+        System.out.println("5. Listar contatos");
         System.out.println("6. Sair");
         System.out.print("Escolha uma opção: ");
+    }
+
+    private static void adicionarContato(Scanner scanner) {
+        // TODO
+    }
+
+    private static void detalharContato(Scanner scanner) {
+        // TODO
+    }
+
+    private static void listarContatos() {
+        // TODO
+    }
+
+    private static void editarContato(Scanner scanner) {
+        // TODO
+    }
+
+    private static void removerContato(Scanner scanner) {
+        // TODO
     }
 }
