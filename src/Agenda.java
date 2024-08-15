@@ -4,14 +4,10 @@ import java.util.Scanner;
 
 public class Agenda {
 
-    private Map<Integer, String[]> contatos = new HashMap<>();
-
     public static void main(String[] args) {
-        Agenda agenda = new Agenda();
-        agenda.executar();
-    }
 
-    private void executar() {
+        Map<Integer, String[]> contatos = new HashMap<>();
+
         Scanner scanner = new Scanner(System.in);
         int opcao;
 
@@ -47,27 +43,7 @@ public class Agenda {
         scanner.close();
     }
 
-    private void adicionarContato(Scanner scanner) {
-        // TODO
-    }
-
-    private void detalharContato(Scanner scanner) {
-        // TODO
-    }
-
-    private void listarContatos() {
-        // TODO
-    }
-
-    private void editarContato(Scanner scanner) {
-        // TODO
-    }
-
-    private void removerContato(Scanner scanner) {
-        // TODO
-    }
-
-    private void exibirMenu() {
+    private static void exibirMenu() {
         System.out.println("\n--- Menu da Agenda ---");
         System.out.println("1. Adicionar Contato");
         System.out.println("2. Detalhar contato");
@@ -76,5 +52,25 @@ public class Agenda {
         System.out.println("5. Listar contatos");
         System.out.println("6. Sair");
         System.out.print("Escolha uma opção: ");
+    }
+
+    private static void adicionarContato(Scanner scanner) {
+        // TODO
+    }
+
+    private static void detalharContato(Scanner scanner) {
+        // TODO
+    }
+
+    private static void listarContatos() {
+        // TODO
+    }
+
+    private static void editarContato(Scanner scanner) {
+        // TODO
+    }
+
+    private static void removerContato(Scanner scanner) {
+        // TODO
     }
 }
