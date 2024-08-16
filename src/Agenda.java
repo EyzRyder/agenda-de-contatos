@@ -21,7 +21,7 @@ public class Agenda {
                     adicionarContato(scanner);
                     break;
                 case 2:
-                    detalharContato(scanner);
+                    detalharContato(scanner, contatos);
                     break;
                 case 3:
                     editarContato(scanner);
@@ -58,8 +58,25 @@ public class Agenda {
         // TODO
     }
 
-    private static void detalharContato(Scanner scanner) {
-        // TODO
+    private static void detalharContato(Scanner scanner, Map<Integer, String[]> contatos) {
+        System.out.print("Digite o número do contato que deseja ver os detalhes: ");
+        String numero = scanner.nextLine();
+
+        String[] contatoEncontrado = null;
+
+        for (Map.Entry<Integer, String[]> contato: contatos.entrySet()) {
+            String[] dados = contato.getValue();
+            if(dados[1].equals(numero)) {
+                contatoEncontrado = dados;
+                break;
+            }
+        }
+
+        if(contatoEncontrado == null) {
+            System.out.println("Contato não encontrado");
+        } else {
+            System.out.println("Nome: " + contatoEncontrado[0] + " | Telefone: " + contatoEncontrado[1] + " | Email: " + contatoEncontrado[2]);
+        }
     }
 
     private static void listarContatos() {
