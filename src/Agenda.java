@@ -10,7 +10,7 @@ public class Agenda {
         Scanner scanner = new Scanner(System.in);
         Integer idCounter = 1;
         Integer opcao;
-        Boolean status = false;
+        boolean status = false;
 
         do {
             exibirMenu();
@@ -106,7 +106,7 @@ public class Agenda {
         Map.Entry<Integer, String[]> contatoEncontrado = searchTelefoneEmContatos(contatos, numero);
         String[] contatoValues = contatoEncontrado.getValue();
 
-        if (contatoEncontrado != null || contatoValues != null) {
+        if (contatoValues != null) {
             System.out.println(
                     "Nome: " + contatoValues[0] + " | Telefone: " + contatoValues[1] + " | Email: " + contatoValues[2]);
         }
@@ -126,10 +126,12 @@ public class Agenda {
         Map.Entry<Integer, String[]> contatoEncontrado = searchTelefoneEmContatos(contatos, telefone);
         String[] contatoValues = contatoEncontrado.getValue();
 
-        if (contatoEncontrado == null || contatoValues == null) {
+        if (contatoValues == null) {
             System.out.println("Contato não encontrado.");
             return false;
         }
+
+        idContato = contatoEncontrado.getKey();
 
         System.out.print("Digite o novo nome (ou pressione Enter para manter o atual): ");
         String novoNome = scanner.nextLine();
