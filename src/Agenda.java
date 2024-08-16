@@ -52,7 +52,7 @@ public class Agenda {
                     }
                     break;
                 case 5:
-                    listarContatos();
+                    listarContatos(scanner, contatos);
                     break;
                 case 6:
                     System.out.println("Saindo...");
@@ -89,9 +89,8 @@ public class Agenda {
         email = scanner.nextLine();
 
         Map.Entry<Integer, String[]> contatoEncontrado = searchTelefoneEmContatos(contatos, numeroDeTelefone);
-        String[] contatoValues = contatoEncontrado.getValue();
 
-        if (contatoValues != null) {
+        if (contatoEncontrado != null) {
             return false;
         }
 
@@ -104,6 +103,10 @@ public class Agenda {
         String numero = scanner.nextLine();
 
         Map.Entry<Integer, String[]> contatoEncontrado = searchTelefoneEmContatos(contatos, numero);
+        if (contatoEncontrado == null) {
+            return false;
+        }
+
         String[] contatoValues = contatoEncontrado.getValue();
 
         if (contatoValues != null) {
@@ -113,8 +116,12 @@ public class Agenda {
         return contatoValues != null;
     }
 
-    private static void listarContatos() {
-        // TODO
+    private static void listarContatos(Scanner scanner, Map<Integer, String[]> contatos) {
+        for (Map.Entry<Integer, String[]> contato : contatos.entrySet()) {
+            String[] contatoValues = contato.getValue();
+            System.out.println(
+                    "Nome: " + contatoValues[0] + " | Telefone: " + contatoValues[1] + " | Email: " + contatoValues[2]);
+        }
     }
 
     private static boolean editarContato(Scanner scanner, Map<Integer, String[]> contatos) {
@@ -124,10 +131,13 @@ public class Agenda {
         Integer idContato = null;
 
         Map.Entry<Integer, String[]> contatoEncontrado = searchTelefoneEmContatos(contatos, telefone);
+        if (contatoEncontrado == null) {
+            return false;
+        }
+
         String[] contatoValues = contatoEncontrado.getValue();
 
         if (contatoValues == null) {
-            System.out.println("Contato não encontrado.");
             return false;
         }
 
@@ -157,6 +167,10 @@ public class Agenda {
         String[] contatoRemovido = null;
 
         Map.Entry<Integer, String[]> contatoEncontrado = searchTelefoneEmContatos(contatos, numero);
+        if (contatoEncontrado == null) {
+            return false;
+        }
+
         String[] contatoValues = contatoEncontrado.getValue();
 
         if (contatoValues[1].equals(numero)) {
