@@ -35,7 +35,7 @@ public class Agenda {
                     editarContato(scanner);
                     break;
                 case 4:
-                    removerContato(scanner);
+                    removerContato(scanner, contatos);
                     break;
                 case 5:
                     listarContatos();
@@ -103,8 +103,23 @@ public class Agenda {
         // TODO
     }
 
-    private static void removerContato(Scanner scanner) {
-        // TODO
+    private static void removerContato(Scanner scanner, Map<Integer, String[]> contatos ) {
+        System.out.println("Digite o numero de contato para excluir: ");
+        String numero = scanner.nextLine();
+
+        String[] contatoRemovido = null;
+
+        for (Map.Entry<Integer, String[]> contato: contatos.entrySet()) {
+            String[] dados = contato.getValue();
+            if(dados[1].equals(numero)) {
+                contatoRemovido = contatos.remove(contato.getKey());
+                System.out.println("Contato removido com sucesso!");
+                break;
+            }
+        }
+        if(contatoRemovido == null) {
+            System.out.println("Numero não encontrado!");
+        }
     }
 
     private static String[] searchTelefoneEmContatos(Map<Integer, String[]> contatos,String numeroDeTelefone){
