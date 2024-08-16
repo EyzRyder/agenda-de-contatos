@@ -31,16 +31,18 @@ public class Agenda {
                     detalharContato(scanner, contatos);
                     break;
                 case 3:
-                    editarContato(scanner);
+                    editarContato(scanner, contatos);
                     break;
                 case 4:
                     status = removerContato(scanner, contatos);
-                    if (status) {
+                    if (status) 
+                    {
                         System.out.println("Contato removido com sucesso!");
-                    } else {
+                    } 
+                    else 
+                    {
                         System.out.println("Numero não encontrado!");
                     }
-
                     break;
                 case 5:
                     listarContatos();
@@ -66,6 +68,7 @@ public class Agenda {
         System.out.println("6. Sair");
         System.out.print("Escolha uma opção: ");
     }
+
 
     private static boolean adicionarContato(Scanner scanner, Map<Integer, String[]> contatos, Integer id) {
         String nome;
@@ -98,7 +101,9 @@ public class Agenda {
 
         if (contatoValues == null) {
             System.out.println("Contato não encontrado");
-        } else {
+        } 
+        else 
+        {
             System.out.println(
                     "Nome: " + contatoValues[0] + " | Telefone: " + contatoValues[1] + " | Email: " + contatoValues[2]);
         }
@@ -108,9 +113,45 @@ public class Agenda {
         // TODO
     }
 
-    private static void editarContato(Scanner scanner) {
-        // TODO
+    private static void editarContato(Scanner scanner, Map<Integer, String[]> contatos) {
+        System.out.print("Digite o telefone do contato que deseja editar: ");
+        String telefone = scanner.nextLine();
+
+        Integer idContato = null;
+        String[] contatoEncontrado = null;
+
+        for (Map.Entry<Integer, String[]> contato : contatos.entrySet()) {
+            String[] dados = contato.getValue();
+            if (dados[1].equals(telefone)) {
+                idContato = contato.getKey();
+                contatoEncontrado = dados;
+                break;
+            }
+        }
+
+        if (contatoEncontrado == null) {
+            System.out.println("Contato não encontrado.");
+            return;
+        }
+
+
+        System.out.print("Digite o novo nome (ou pressione Enter para manter o atual): ");
+        String novoNome = scanner.nextLine();
+        if (!novoNome.isEmpty()) {
+            contatoEncontrado[0] = novoNome;
+        }
+
+        System.out.print("Digite o novo e-mail (ou pressione Enter para manter o atual): ");
+        String novoEmail = scanner.nextLine();
+        if (!novoEmail.isEmpty()) {
+            contatoEncontrado[2] = novoEmail;
+        }
+
+        contatos.put(idContato, contatoEncontrado);
+
+        System.out.println("Contato atualizado com sucesso.");
     }
+
 
     private static boolean removerContato(Scanner scanner, Map<Integer, String[]> contatos) {
         System.out.println("Digite o numero de contato para excluir: ");
