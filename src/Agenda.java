@@ -7,22 +7,26 @@ public class Agenda {
     public static void main(String[] args) {
 
         Map<Integer, String[]> contatos = new HashMap<>();
-
-        Integer idCounter=1;
-
         Scanner scanner = new Scanner(System.in);
+        Integer idCounter=1;
         Integer opcao;
+        Boolean status=false;
 
 
         do {
             exibirMenu();
             opcao = scanner.nextInt();
-            scanner.nextLine();  // Consumir a quebra de linha
+            scanner.nextLine();
 
             switch (opcao) {
                 case 1:
-                    adicionarContato(scanner,contatos,idCounter);
-                    idCounter++;
+                    status=adicionarContato(scanner,contatos,idCounter);
+                    if(status){
+                        System.out.println("Contato Adicionado com sucesso");
+                        idCounter++;
+                    }else{
+                        System.out.println("Não foi possivel adicionar Contato");
+                    }
                     break;
                 case 2:
                     detalharContato(scanner, contatos);
@@ -72,7 +76,7 @@ public class Agenda {
 
         String[] contatoEncontrado = searchTelefoneEmContatos(contatos,numeroDeTelefone);
 
-        if (contatoEncontrado==null) return false;
+        if (contatoEncontrado!=null) return false;
 
         contatos.put(id,new String[]{nome,numeroDeTelefone,email});
         return true;
