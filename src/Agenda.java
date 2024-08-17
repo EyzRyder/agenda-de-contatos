@@ -24,7 +24,7 @@ public class Agenda {
                     detalharContato(scanner, contatos);
                     break;
                 case 3:
-                    status = editarContato(scanner, contatos);
+                    editarContato(scanner, contatos);
                     if (status) {
                         System.out.println("Contato atualizado com sucesso.");
                     } else {
@@ -110,32 +110,49 @@ public class Agenda {
         }
     }
 
-    private static boolean editarContato(Scanner scanner, Map<String, String[]> contatos) {
-        System.out.print("Digite o telefone do contato que deseja editar: ");
-        String numeroDeTelefone = scanner.nextLine();
+    private static void editarContato(Scanner scanner, Map<String, String[]> contatos) {
+        try {
+            System.out.print("Digite o telefone do contato que deseja editar: ");
+            String numeroDeTelefone = scanner.nextLine();
 
-        String[] contatoValues = contatos.get(numeroDeTelefone);
+            String[] contatoValues = contatos.get(numeroDeTelefone);
+            if (contatoValues == null) {
+               throw new Exception("Contato: "+numeroDeTelefone+" não encontrado");
+            }
 
-        if (contatoValues == null) {
-            return false;
+            System.out.print("Digite o novo nome (ou pressione Enter para manter o atual): ");
+            String novoNome = scanner.nextLine();
+            if (!novoNome.isEmpty()) {
+                contatoValues[0] = novoNome;
+            }
+
+            System.out.print("Digite o novo e-mail (ou pressione Enter para manter o atual): ");
+            String novoEmail = scanner.nextLine();
+            if (!novoEmail.isEmpty()) {
+                contatoValues[1] = novoEmail;
+            }
+
+            System.out.print("Digite o novo número de telefone (ou pressione Enter para manter o atual): ");
+            String novoNumeroDeTelefone = scanner.nextLine();
+
+            if (!novoNumeroDeTelefone.isEmpty() && !novoNumeroDeTelefone.equals(numeroDeTelefone)) {
+                if (contatos.containsKey(novoNumeroDeTelefone)) {
+                    throw new Exception("Número de telefone já cadastrado. Atualização não realizada.");
+                }
+              
+                contatos.remove(numeroDeTelefone);
+                contatos.put(novoNumeroDeTelefone, contatoValues);
+                System.out.println("Número de telefone atualizado com sucesso.");
+            } else {
+                contatos.put(numeroDeTelefone, contatoValues);
+                System.out.println("Contato atualizado com sucesso.");
+            }
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
         }
-
-        System.out.print("Digite o novo nome (ou pressione Enter para manter o atual): ");
-        String novoNome = scanner.nextLine();
-        if (!novoNome.isEmpty()) {
-            contatoValues[0] = novoNome;
-        }
-
-        System.out.print("Digite o novo e-mail (ou pressione Enter para manter o atual): ");
-        String novoEmail = scanner.nextLine();
-        if (!novoEmail.isEmpty()) {
-            contatoValues[1] = novoEmail;
-        }
-
-        contatos.put(numeroDeTelefone, contatoValues);
-
-        return true;
     }
+
+
 
     private static void removerContato(Scanner scanner, Map<String, String[]> contatos) {
         try{
