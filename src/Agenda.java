@@ -8,8 +8,7 @@ public class Agenda {
 
         Map<String, String[]> contatos = new HashMap<>();
         Scanner scanner = new Scanner(System.in);
-        Integer opcao;
-        boolean status = false;
+        int opcao=0;
 
         do {
             exibirMenu();
@@ -30,7 +29,7 @@ public class Agenda {
                     removerContato(scanner, contatos);
                     break;
                 case 5:
-                    listarContatos(scanner, contatos);
+                    listarContatos(contatos);
                     break;
                 case 6:
                     System.out.println("Saindo...");
@@ -62,9 +61,9 @@ public class Agenda {
 
             System.out.println("Digite o nome do contato: ");
             nome = scanner.nextLine();
-            System.out.println("Digite o telefone  do contato: ");
+            System.out.println("Digite o telefone do contato: ");
             numeroDeTelefone = scanner.nextLine();
-            System.out.println("Digite o email  do contato: ");
+            System.out.println("Digite o email do contato: ");
             email = scanner.nextLine();
 
             if (contatos.containsKey(numeroDeTelefone)) {
@@ -97,7 +96,11 @@ public class Agenda {
         }
     }
 
-    private static void listarContatos(Scanner scanner, Map<String, String[]> contatos) {
+    private static void listarContatos(Map<String, String[]> contatos) {
+        if (contatos.isEmpty()){
+            System.out.println("Agenda vazio");
+            return;
+        }
         for (Map.Entry<String, String[]> contato : contatos.entrySet()) {
             String[] contatoValues = contato.getValue();
             System.out.println(
@@ -146,7 +149,6 @@ public class Agenda {
             System.out.println(e.getMessage());
         }
     }
-
 
     private static void removerContato(Scanner scanner, Map<String, String[]> contatos) {
         try {
