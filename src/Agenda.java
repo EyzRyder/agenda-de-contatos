@@ -6,9 +6,8 @@ public class Agenda {
 
     public static void main(String[] args) {
 
-        Map<Integer, String[]> contatos = new HashMap<>();
+        Map<String, String[]> contatos = new HashMap<>();
         Scanner scanner = new Scanner(System.in);
-        Integer idCounter = 1;
         Integer opcao;
         boolean status = false;
 
@@ -19,10 +18,9 @@ public class Agenda {
 
             switch (opcao) {
                 case 1:
-                    status = adicionarContato(scanner, contatos, idCounter);
+                    status = adicionarContato(scanner, contatos);
                     if (status) {
                         System.out.println("Contato Adicionado com sucesso");
-                        idCounter++;
                     } else {
                         System.out.println("Não foi possivel adicionar Contato");
                     }
@@ -76,7 +74,7 @@ public class Agenda {
         System.out.print("Escolha uma opção: ");
     }
 
-    private static boolean adicionarContato(Scanner scanner, Map<Integer, String[]> contatos, Integer id) {
+    private static boolean adicionarContato(Scanner scanner, Map<String, String[]> contatos) {
         String nome;
         String numeroDeTelefone;
         String email;
@@ -88,60 +86,47 @@ public class Agenda {
         System.out.println("Digite o email  do contato: ");
         email = scanner.nextLine();
 
-        Map.Entry<Integer, String[]> contatoEncontrado = searchTelefoneEmContatos(contatos, numeroDeTelefone);
 
-        if (contatoEncontrado != null) {
+
+        if (contatos.containsKey(numeroDeTelefone)) {
             return false;
         }
 
-        contatos.put(id, new String[]{nome, numeroDeTelefone, email});
+        contatos.put(numeroDeTelefone, new String[]{nome, email});
         return true;
     }
 
-    private static boolean detalharContato(Scanner scanner, Map<Integer, String[]> contatos) {
+    private static boolean detalharContato(Scanner scanner, Map<String, String[]> contatos) {
         System.out.print("Digite o número do contato que deseja ver os detalhes: ");
-        String numero = scanner.nextLine();
+        String numeroDeTelefone = scanner.nextLine();
 
-        Map.Entry<Integer, String[]> contatoEncontrado = searchTelefoneEmContatos(contatos, numero);
-        if (contatoEncontrado == null) {
-            return false;
-        }
-
-        String[] contatoValues = contatoEncontrado.getValue();
+        String[] contatoValues = contatos.get(numeroDeTelefone);
 
         if (contatoValues != null) {
             System.out.println(
-                    "Nome: " + contatoValues[0] + " | Telefone: " + contatoValues[1] + " | Email: " + contatoValues[2]);
+                    "Nome: " + contatoValues[0] + " | Telefone: " + numeroDeTelefone + " | Email: " + contatoValues[1]);
         }
         return contatoValues != null;
     }
 
-    private static void listarContatos(Scanner scanner, Map<Integer, String[]> contatos) {
-        for (Map.Entry<Integer, String[]> contato : contatos.entrySet()) {
+    private static void listarContatos(Scanner scanner, Map<String, String[]> contatos) {
+        for (Map.Entry<String, String[]> contato : contatos.entrySet()) {
             String[] contatoValues = contato.getValue();
             System.out.println(
-                    "Nome: " + contatoValues[0] + " | Telefone: " + contatoValues[1] + " | Email: " + contatoValues[2]);
+                    "Nome: " + contatoValues[0] + " | Telefone: " + contato.getKey() + " | Email: " + contatoValues[1]);
         }
     }
 
-    private static boolean editarContato(Scanner scanner, Map<Integer, String[]> contatos) {
+    private static boolean editarContato(Scanner scanner, Map<String, String[]> contatos) {
         System.out.print("Digite o telefone do contato que deseja editar: ");
-        String telefone = scanner.nextLine();
+        String numeroDeTelefone = scanner.nextLine();
 
-        Integer idContato = null;
 
-        Map.Entry<Integer, String[]> contatoEncontrado = searchTelefoneEmContatos(contatos, telefone);
-        if (contatoEncontrado == null) {
-            return false;
-        }
-
-        String[] contatoValues = contatoEncontrado.getValue();
+        String[] contatoValues = contatos.get(numeroDeTelefone);
 
         if (contatoValues == null) {
             return false;
         }
-
-        idContato = contatoEncontrado.getKey();
 
         System.out.print("Digite o novo nome (ou pressione Enter para manter o atual): ");
         String novoNome = scanner.nextLine();
@@ -152,46 +137,24 @@ public class Agenda {
         System.out.print("Digite o novo e-mail (ou pressione Enter para manter o atual): ");
         String novoEmail = scanner.nextLine();
         if (!novoEmail.isEmpty()) {
-            contatoValues[2] = novoEmail;
+            contatoValues[1] = novoEmail;
         }
 
-        contatos.put(idContato, contatoValues);
+        contatos.put(numeroDeTelefone, contatoValues);
 
         return true;
     }
 
-    private static boolean removerContato(Scanner scanner, Map<Integer, String[]> contatos) {
+    private static boolean removerContato(Scanner scanner, Map<String, String[]> contatos) {
         System.out.println("Digite o numero de contato para excluir: ");
-        String numero = scanner.nextLine();
+        String numeroDeTelefone = scanner.nextLine();
 
-        String[] contatoRemovido = null;
-
-        Map.Entry<Integer, String[]> contatoEncontrado = searchTelefoneEmContatos(contatos, numero);
-        if (contatoEncontrado == null) {
-            return false;
-        }
-
-        String[] contatoValues = contatoEncontrado.getValue();
-
-        if (contatoValues[1].equals(numero)) {
-            contatoRemovido = contatos.remove(contatoEncontrado.getKey());
+        String[] contatoRemovido=null;
+        if (contatos.containsKey(numeroDeTelefone)) {
+            contatoRemovido = contatos.remove(numeroDeTelefone);
         }
 
         return contatoRemovido != null;
     }
 
-    private static Map.Entry<Integer, String[]> searchTelefoneEmContatos(Map<Integer, String[]> contatos,
-                                                                         String numeroDeTelefone) {
-        Map.Entry<Integer, String[]> contatoEncontrado = null;
-
-        for (Map.Entry<Integer, String[]> contato : contatos.entrySet()) {
-            String[] dados = contato.getValue();
-            if (dados[1].equals(numeroDeTelefone)) {
-                contatoEncontrado = contato;
-                break;
-            }
-        }
-
-        return contatoEncontrado;
-    }
 }
