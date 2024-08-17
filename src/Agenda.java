@@ -42,12 +42,7 @@ public class Agenda {
                     }
                     break;
                 case 4:
-                    status = removerContato(scanner, contatos);
-                    if (status) {
-                        System.out.println("Contato removido com sucesso!");
-                    } else {
-                        System.out.println("Numero não encontrado!");
-                    }
+                    removerContato(scanner, contatos);
                     break;
                 case 5:
                     listarContatos(scanner, contatos);
@@ -145,16 +140,22 @@ public class Agenda {
         return true;
     }
 
-    private static boolean removerContato(Scanner scanner, Map<String, String[]> contatos) {
-        System.out.println("Digite o numero de contato para excluir: ");
-        String numeroDeTelefone = scanner.nextLine();
+    private static void removerContato(Scanner scanner, Map<String, String[]> contatos) {
 
-        String[] contatoRemovido=null;
-        if (contatos.containsKey(numeroDeTelefone)) {
-            contatoRemovido = contatos.remove(numeroDeTelefone);
+        try{
+            System.out.println("Digite o numero de contato para excluir: ");
+            String numeroDeTelefone = scanner.nextLine();
+
+            if (!contatos.containsKey(numeroDeTelefone)) {
+               throw new Exception("Contato:" + numeroDeTelefone + " Não foi encontrado. ");
+            }
+            contatos.remove(numeroDeTelefone);
+            System.out.println("Contato removido com sucesso!");
+
+        } catch (Exception e){
+            System.out.println(e.getMessage());
         }
 
-        return contatoRemovido != null;
     }
 
 }
