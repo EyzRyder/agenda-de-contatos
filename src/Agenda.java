@@ -18,12 +18,7 @@ public class Agenda {
 
             switch (opcao) {
                 case 1:
-                    status = adicionarContato(scanner, contatos);
-                    if (status) {
-                        System.out.println("Contato Adicionado com sucesso");
-                    } else {
-                        System.out.println("Não foi possivel adicionar Contato");
-                    }
+                    adicionarContato(scanner, contatos);
                     break;
                 case 2:
                     status = detalharContato(scanner, contatos);
@@ -69,26 +64,28 @@ public class Agenda {
         System.out.print("Escolha uma opção: ");
     }
 
-    private static boolean adicionarContato(Scanner scanner, Map<String, String[]> contatos) {
-        String nome;
-        String numeroDeTelefone;
-        String email;
+    private static void adicionarContato(Scanner scanner, Map<String, String[]> contatos) {
+        try {
+            String nome;
+            String numeroDeTelefone;
+            String email;
 
-        System.out.println("Digite o nome do contato: ");
-        nome = scanner.nextLine();
-        System.out.println("Digite o telefone  do contato: ");
-        numeroDeTelefone = scanner.nextLine();
-        System.out.println("Digite o email  do contato: ");
-        email = scanner.nextLine();
+            System.out.println("Digite o nome do contato: ");
+            nome = scanner.nextLine();
+            System.out.println("Digite o telefone  do contato: ");
+            numeroDeTelefone = scanner.nextLine();
+            System.out.println("Digite o email  do contato: ");
+            email = scanner.nextLine();
 
+            if (contatos.containsKey(numeroDeTelefone)) {
+                throw new Exception("Numero digitado já está sendo usado.");
+            }
 
-
-        if (contatos.containsKey(numeroDeTelefone)) {
-            return false;
+            contatos.put(numeroDeTelefone, new String[]{nome, email});
+            System.out.println("Contato Adicionado com sucesso");
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
-
-        contatos.put(numeroDeTelefone, new String[]{nome, email});
-        return true;
     }
 
     private static boolean detalharContato(Scanner scanner, Map<String, String[]> contatos) {
@@ -141,7 +138,6 @@ public class Agenda {
     }
 
     private static void removerContato(Scanner scanner, Map<String, String[]> contatos) {
-
         try{
             System.out.println("Digite o numero de contato para excluir: ");
             String numeroDeTelefone = scanner.nextLine();
