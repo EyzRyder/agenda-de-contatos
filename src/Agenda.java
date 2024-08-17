@@ -25,11 +25,6 @@ public class Agenda {
                     break;
                 case 3:
                     editarContato(scanner, contatos);
-                    if (status) {
-                        System.out.println("Contato atualizado com sucesso.");
-                    } else {
-                        System.out.println("Contato não foi atualizado ");
-                    }
                     break;
                 case 4:
                     removerContato(scanner, contatos);
