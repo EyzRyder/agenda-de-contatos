@@ -2,6 +2,18 @@
 
 Este projeto consiste em uma aplicação de agenda de contatos desenvolvida em Java utilizando o IntelliJ IDEA. A agenda permite o registro, visualização, edição e remoção de contatos, seguindo as regras de negócio estabelecidas.
 
+## Perguntas sobre o processo do projeto
+
+1. Quais foram os desafios no projeto?
+   - Versionamento em grupo com git;
+   - Duvidas sobre como enfrentar o método Editar.
+
+2. O que foi mais interessante?
+    - O projeto como todo foi interessante por causa das restrições levou a gente pensar fora da caixa.
+
+3. O que pode ser melhorado?
+    - A validação dos inputs;
+    - Implementação de persisténcia.
 
 ## Funcionalidades
 
