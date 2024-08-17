@@ -18,20 +18,10 @@ public class Agenda {
 
             switch (opcao) {
                 case 1:
-                    status = adicionarContato(scanner, contatos);
-                    if (status) {
-                        System.out.println("Contato Adicionado com sucesso");
-                    } else {
-                        System.out.println("Não foi possivel adicionar Contato");
-                    }
+                    adicionarContato(scanner, contatos);
                     break;
                 case 2:
-                    status = detalharContato(scanner, contatos);
-                    if (status) {
-                        System.out.println("Contato encontrado");
-                    } else {
-                        System.out.println("Contato não encontrado");
-                    }
+                    detalharContato(scanner, contatos);
                     break;
                 case 3:
                     editarContato(scanner, contatos);
@@ -42,12 +32,7 @@ public class Agenda {
                     }
                     break;
                 case 4:
-                    status = removerContato(scanner, contatos);
-                    if (status) {
-                        System.out.println("Contato removido com sucesso!");
-                    } else {
-                        System.out.println("Numero não encontrado!");
-                    }
+                    removerContato(scanner, contatos);
                     break;
                 case 5:
                     listarContatos(scanner, contatos);
@@ -74,39 +59,47 @@ public class Agenda {
         System.out.print("Escolha uma opção: ");
     }
 
-    private static boolean adicionarContato(Scanner scanner, Map<String, String[]> contatos) {
-        String nome;
-        String numeroDeTelefone;
-        String email;
+    private static void adicionarContato(Scanner scanner, Map<String, String[]> contatos) {
+        try {
+            String nome;
+            String numeroDeTelefone;
+            String email;
 
-        System.out.println("Digite o nome do contato: ");
-        nome = scanner.nextLine();
-        System.out.println("Digite o telefone  do contato: ");
-        numeroDeTelefone = scanner.nextLine();
-        System.out.println("Digite o email  do contato: ");
-        email = scanner.nextLine();
+            System.out.println("Digite o nome do contato: ");
+            nome = scanner.nextLine();
+            System.out.println("Digite o telefone  do contato: ");
+            numeroDeTelefone = scanner.nextLine();
+            System.out.println("Digite o email  do contato: ");
+            email = scanner.nextLine();
 
+            if (contatos.containsKey(numeroDeTelefone)) {
+                throw new Exception("Numero digitado já está sendo usado.");
+            }
 
-
-        if (contatos.containsKey(numeroDeTelefone)) {
-            return false;
+            contatos.put(numeroDeTelefone, new String[]{nome, email});
+            System.out.println("Contato Adicionado com sucesso");
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
-
-        contatos.put(numeroDeTelefone, new String[]{nome, email});
-        return true;
     }
 
-    private static boolean detalharContato(Scanner scanner, Map<String, String[]> contatos) {
-        System.out.print("Digite o número do contato que deseja ver os detalhes: ");
-        String numeroDeTelefone = scanner.nextLine();
+    private static void detalharContato(Scanner scanner, Map<String, String[]> contatos) {
+        try {
+            System.out.print("Digite o número do contato que deseja ver os detalhes: ");
+            String numeroDeTelefone = scanner.nextLine();
+            String[] contatoValues = contatos.get(numeroDeTelefone);
 
-        String[] contatoValues = contatos.get(numeroDeTelefone);
+            if (contatoValues == null) {
+                throw new Exception("Contato não encontrado");
+            }
 
-        if (contatoValues != null) {
-            System.out.println(
-                    "Nome: " + contatoValues[0] + " | Telefone: " + numeroDeTelefone + " | Email: " + contatoValues[1]);
+            System.out.println("Nome: " + contatoValues[0]
+                    + " | Telefone: " + numeroDeTelefone
+                    + " | Email: " + contatoValues[1]);
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
-        return contatoValues != null;
     }
 
     private static void listarContatos(Scanner scanner, Map<String, String[]> contatos) {
@@ -124,8 +117,7 @@ public class Agenda {
 
             String[] contatoValues = contatos.get(numeroDeTelefone);
             if (contatoValues == null) {
-                System.out.println("Contato não encontrado.");
-                return;
+               throw new Exception("Contato: "+numeroDeTelefone+" não encontrado");
             }
 
             System.out.print("Digite o novo nome (ou pressione Enter para manter o atual): ");
@@ -145,10 +137,9 @@ public class Agenda {
 
             if (!novoNumeroDeTelefone.isEmpty() && !novoNumeroDeTelefone.equals(numeroDeTelefone)) {
                 if (contatos.containsKey(novoNumeroDeTelefone)) {
-                    System.err.println("Número de telefone já cadastrado. Atualização não realizada.");
-                    return;
+                    throw new Exception("Número de telefone já cadastrado. Atualização não realizada.");
                 }
-
+              
                 contatos.remove(numeroDeTelefone);
                 contatos.put(novoNumeroDeTelefone, contatoValues);
                 System.out.println("Número de telefone atualizado com sucesso.");
@@ -163,16 +154,21 @@ public class Agenda {
 
 
 
-    private static boolean removerContato(Scanner scanner, Map<String, String[]> contatos) {
-        System.out.println("Digite o numero de contato para excluir: ");
-        String numeroDeTelefone = scanner.nextLine();
+    private static void removerContato(Scanner scanner, Map<String, String[]> contatos) {
+        try{
+            System.out.println("Digite o numero de contato para excluir: ");
+            String numeroDeTelefone = scanner.nextLine();
 
-        String[] contatoRemovido=null;
-        if (contatos.containsKey(numeroDeTelefone)) {
-            contatoRemovido = contatos.remove(numeroDeTelefone);
+            if (!contatos.containsKey(numeroDeTelefone)) {
+               throw new Exception("Contato:" + numeroDeTelefone + " Não foi encontrado. ");
+            }
+            contatos.remove(numeroDeTelefone);
+            System.out.println("Contato removido com sucesso!");
+
+        } catch (Exception e){
+            System.out.println(e.getMessage());
         }
 
-        return contatoRemovido != null;
     }
 
 }
