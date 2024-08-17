@@ -117,7 +117,7 @@ public class Agenda {
 
             String[] contatoValues = contatos.get(numeroDeTelefone);
             if (contatoValues == null) {
-               throw new Exception("Contato: "+numeroDeTelefone+" não encontrado");
+                throw new Exception("Contato: " + numeroDeTelefone + " não encontrado");
             }
 
             System.out.print("Digite o novo nome (ou pressione Enter para manter o atual): ");
@@ -139,7 +139,7 @@ public class Agenda {
                 if (contatos.containsKey(novoNumeroDeTelefone)) {
                     throw new Exception("Número de telefone já cadastrado. Atualização não realizada.");
                 }
-              
+
                 contatos.remove(numeroDeTelefone);
                 contatos.put(novoNumeroDeTelefone, contatoValues);
                 System.out.println("Número de telefone atualizado com sucesso.");
@@ -153,19 +153,18 @@ public class Agenda {
     }
 
 
-
     private static void removerContato(Scanner scanner, Map<String, String[]> contatos) {
-        try{
+        try {
             System.out.println("Digite o numero de contato para excluir: ");
             String numeroDeTelefone = scanner.nextLine();
 
             if (!contatos.containsKey(numeroDeTelefone)) {
-               throw new Exception("Contato:" + numeroDeTelefone + " Não foi encontrado. ");
+                throw new Exception("Contato:" + numeroDeTelefone + " Não foi encontrado. ");
             }
             contatos.remove(numeroDeTelefone);
             System.out.println("Contato removido com sucesso!");
 
-        } catch (Exception e){
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
 
