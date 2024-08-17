@@ -143,7 +143,7 @@ public class Agenda {
                 System.out.println("Contato atualizado com sucesso.");
             }
         } catch (Exception e) {
-            System.err.println(e.getMessage());
+            System.out.println(e.getMessage());
         }
     }
 
