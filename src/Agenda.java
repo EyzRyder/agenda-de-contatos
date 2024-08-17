@@ -8,12 +8,16 @@ public class Agenda {
 
         Map<String, String[]> contatos = new HashMap<>();
         Scanner scanner = new Scanner(System.in);
-        int opcao=0;
+
+        int opcao = 0;
 
         do {
             exibirMenu();
-            opcao = scanner.nextInt();
-            scanner.nextLine();
+            try {
+                opcao = Integer.parseInt(scanner.nextLine());
+            } catch (Exception e) {
+                opcao = 0;
+            }
 
             switch (opcao) {
                 case 1:
@@ -97,7 +101,7 @@ public class Agenda {
     }
 
     private static void listarContatos(Map<String, String[]> contatos) {
-        if (contatos.isEmpty()){
+        if (contatos.isEmpty()) {
             System.out.println("Agenda vazio");
             return;
         }
