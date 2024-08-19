@@ -9,11 +9,11 @@ Este projeto consiste em uma aplicação de agenda de contatos desenvolvida em J
    - Duvidas sobre como enfrentar o método Editar.
 
 2. O que foi mais interessante?
-    - O projeto como todo foi interessante por causa das restrições levou a gente pensar fora da caixa.
+    - O projeto como todo foi interessante por causa das restrições que nos levou a gente pensar fora da caixa.
 
 3. O que pode ser melhorado?
     - A validação dos inputs;
-    - Implementação de persisténcia.
+    - Implementação de persistência.
 
 ## Funcionalidades
 

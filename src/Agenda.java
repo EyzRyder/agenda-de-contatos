@@ -63,19 +63,27 @@ public class Agenda {
             String numeroDeTelefone;
             String email;
 
-            System.out.println("Digite o nome do contato: ");
+            System.out.print("Digite o nome do contato: ");
             nome = scanner.nextLine();
-            System.out.println("Digite o telefone do contato: ");
+            System.out.print("Digite o telefone do contato: ");
             numeroDeTelefone = scanner.nextLine();
-            System.out.println("Digite o email do contato: ");
+            System.out.print("Digite o email do contato: ");
             email = scanner.nextLine();
 
+            if (nome.isEmpty() || numeroDeTelefone.isEmpty() || email.isEmpty()) {
+                System.out.println("---------------------------");
+                throw new Exception("Todos os campos (nome, telefone e e-mail) devem ser preenchidos.");
+            }
+
             if (contatos.containsKey(numeroDeTelefone)) {
+                System.out.println("---------------------------");
                 throw new Exception("Numero digitado já está sendo usado.");
             }
 
             contatos.put(numeroDeTelefone, new String[]{nome, email});
+            System.out.println("---------------------------");
             System.out.println("Contato Adicionado com sucesso");
+            System.out.println("---------------------------");
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -88,12 +96,16 @@ public class Agenda {
             String[] contatoValues = contatos.get(numeroDeTelefone);
 
             if (contatoValues == null) {
+                System.out.println("---------------------------");
                 throw new Exception("Contato não encontrado");
             }
 
+            System.out.println("---------------------------");
             System.out.println("Nome: " + contatoValues[0]
                     + " | Telefone: " + numeroDeTelefone
                     + " | Email: " + contatoValues[1]);
+            System.out.println("---------------------------");
+
 
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -102,13 +114,18 @@ public class Agenda {
 
     private static void listarContatos(Map<String, String[]> contatos) {
         if (contatos.isEmpty()) {
-            System.out.println("Agenda vazio");
+            System.out.println("---------------------------");
+            System.out.println("Agenda vazia");
+            System.out.println("---------------------------");
             return;
         }
         for (Map.Entry<String, String[]> contato : contatos.entrySet()) {
             String[] contatoValues = contato.getValue();
+            System.out.println("---------------------------");
             System.out.println(
                     "Nome: " + contatoValues[0] + " | Telefone: " + contato.getKey() + " | Email: " + contatoValues[1]);
+            System.out.println("---------------------------");
+
         }
     }
 
@@ -119,6 +136,7 @@ public class Agenda {
 
             String[] contatoValues = contatos.get(numeroDeTelefone);
             if (contatoValues == null) {
+                System.out.println("---------------------------");
                 throw new Exception("Contato: " + numeroDeTelefone + " não encontrado");
             }
 
@@ -139,15 +157,20 @@ public class Agenda {
 
             if (!novoNumeroDeTelefone.isEmpty() && !novoNumeroDeTelefone.equals(numeroDeTelefone)) {
                 if (contatos.containsKey(novoNumeroDeTelefone)) {
+                    System.out.println("---------------------------");
                     throw new Exception("Número de telefone já cadastrado. Atualização não realizada.");
                 }
 
                 contatos.remove(numeroDeTelefone);
                 contatos.put(novoNumeroDeTelefone, contatoValues);
+                System.out.println("---------------------------");
                 System.out.println("Número de telefone atualizado com sucesso.");
+                System.out.println("---------------------------");
             } else {
                 contatos.put(numeroDeTelefone, contatoValues);
+                System.out.println("---------------------------");
                 System.out.println("Contato atualizado com sucesso.");
+                System.out.println("---------------------------");
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -160,10 +183,13 @@ public class Agenda {
             String numeroDeTelefone = scanner.nextLine();
 
             if (!contatos.containsKey(numeroDeTelefone)) {
+                System.out.println("---------------------------");
                 throw new Exception("Contato:" + numeroDeTelefone + " Não foi encontrado. ");
             }
             contatos.remove(numeroDeTelefone);
+            System.out.println("---------------------------");
             System.out.println("Contato removido com sucesso!");
+            System.out.println("---------------------------");
 
         } catch (Exception e) {
             System.out.println(e.getMessage());
