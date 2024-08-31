@@ -42,3 +42,6 @@ A aplicação foi organizada da seguinte forma:
    ```bash
    git clone https://github.com/EyzRyder/agenda-de-contatos.git
    ```
+2. Abra o projeto no IntelliJ IDEA.
+3. Execute a classe Agenda.java para iniciar a aplicação.
+
