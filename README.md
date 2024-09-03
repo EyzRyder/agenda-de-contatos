@@ -2,6 +2,35 @@
 
 Este projeto consiste em uma aplicação de agenda de contatos desenvolvida em Java utilizando o IntelliJ IDEA. A agenda permite o registro, visualização, edição e remoção de contatos, seguindo as regras de negócio estabelecidas.
 
+##
+
+```mermaid
+classDiagram
+Cliente : + String nome
+Cliente : + String telefone
+Cliente : + String email
+Cliente : + Date dataDeNasci
+Cliente : + String historicoDeIngressos
+Cliente : + int desconto
+
+Adulto <|-- Cliente
+Crianca <|-- Cliente
+Estudante <|-- Cliente
+
+Filme : + String nome
+Filme : + String anos
+Filme : + String categoria
+Filme : + String sinopse
+
+Sala : + String cadeiras
+
+Sessao : + String filme
+Sessao : + String horario
+
+Sessao <|-- Sala
+```
+
+
 ## Perguntas sobre o processo do projeto
 
 1. Quais foram os desafios no projeto?
