@@ -9,25 +9,34 @@ classDiagram
 Cliente : + String nome
 Cliente : + String telefone
 Cliente : + String email
+Cliente : + BigDecimal saldo
 Cliente : + Date dataDeNasci
 Cliente : + String historicoDeIngressos
-Cliente : + int desconto
+Cliente : + avaliarFilme()
+Cliente : + comprarIngresso()
 
-Adulto <|-- Cliente
-Crianca <|-- Cliente
-Estudante <|-- Cliente
+Estudante : + RM
+Estudante : + int anoDeConclusão
 
-Filme : + String nome
-Filme : + String anos
+Funcionario : + String Cargo
+
+Cliente <|-- Vip
+Cliente <|-- Funcionario
+Cliente <|-- Estudante
+
+Filme : + String titulo
+Filme : + int anoDeLancamento
 Filme : + String categoria
 Filme : + String sinopse
+Filme : + int classificacaoEtaria
 
-Sala : + String cadeiras
+Ingresso: + double preco
 
-Sessao : + String filme
 Sessao : + String horario
+Sessao : + String cadeiras
 
-Sessao <|-- Sala
+Filme <|-- Sessao
+Sessao <|-- Ingresso
 ```
 
 
